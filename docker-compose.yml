@@ -1,7 +1,7 @@
 services:
   web:
     container_name: D-Sektionen-Julkalender
-    image: registry.d-sektionen.se/julkalender:latest
+    image: registry.d-sektionen.se/jul.d-sektionen.se:latest
     restart: unless-stopped
     command: uwsgi --ini /etc/uwsgi/julkalender.uwsgi.ini
     volumes:
