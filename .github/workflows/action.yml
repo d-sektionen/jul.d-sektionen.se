@@ -1,4 +1,4 @@
-name: Python Code Quality and Lint
+name: Python CI
 
 on:
   push:
@@ -9,10 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: ricardochaves/python-lint@v1.4.0
-      with:
-          python-version: '3.11'
-      - run: pip install -r requirements.txt
-      - run: python manage.py migrate
-      - run: python manage.py runserver
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run src/manage.py migrate --noinput
+      - run: uv run src/manage.py check
+      - run: uv run src/manage.py test

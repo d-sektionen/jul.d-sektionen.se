@@ -10,3 +10,15 @@ Nostalgic.
 ## Can I change the music?
 
 Yes, go to `julkalender\static\julkalender\js\music.js`. There you will find a lists of youtube video ids.
+
+## Development
+
+This project uses [uv](https://docs.astral.sh/uv/) to manage Python and its dependencies.
+
+```sh
+uv sync
+uv run src/manage.py migrate
+uv run src/manage.py runserver
+```
+
+Dependencies are declared in `pyproject.toml` and locked in `uv.lock`. Run `uv add <package>` to add a dependency and `uv lock` to update the lock file.
