@@ -1,5 +1,5 @@
 # Use an official Python runtime as the base image
-FROM python:3.12-slim
+FROM python:3.15-slim
 
 # Install uv from the official image
 COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /uvx /bin/
@@ -18,10 +18,10 @@ COPY pyproject.toml uv.lock README.md ./
 
 # Install build tools and project dependencies, remove tools and cache after.
 RUN apt update && apt upgrade -y
-RUN apt install gcc musl-dev libpcre2-dev -y
+RUN apt install build-essential libpcre2-dev -y
 RUN uv sync --frozen --no-dev --no-install-project --no-cache
 RUN apt clean autoclean
-RUN apt autoremove --purge apt gcc musl-dev -y --allow-remove-essential
+RUN apt autoremove --purge apt build-essential -y --allow-remove-essential
 RUN rm -rf /var/lib/{apt,dpkg,cache,log,lists}
 
 # Copy over rest of the project after installing deps to optimize rebuilds

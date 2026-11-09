@@ -58,6 +58,4 @@ def about(request):
   return render(request, 'julkalender/about.html')
 
 def handler404(request, exception, template_name="julkalender/404.html"):
-    response = render(404, "julkalender/404.html")
-    response.status_code = 404
-    return response
+    return render(request, template_name, status=404)
