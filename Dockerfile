@@ -17,12 +17,7 @@ ENV PATH="/code/.venv/bin:$PATH"
 COPY pyproject.toml uv.lock README.md ./
 
 # Install build tools and project dependencies, remove tools and cache after.
-RUN apt update && apt upgrade -y
-RUN apt install build-essential libpcre2-dev -y
 RUN uv sync --frozen --no-dev --no-install-project --no-cache
-RUN apt clean autoclean
-RUN apt autoremove --purge apt build-essential -y --allow-remove-essential
-RUN rm -rf /var/lib/{apt,dpkg,cache,log,lists}
 
 # Copy over rest of the project after installing deps to optimize rebuilds
 COPY ./src ./docker-entrypoint.sh ./

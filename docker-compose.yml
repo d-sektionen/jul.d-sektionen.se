@@ -3,10 +3,9 @@ services:
     container_name: D-Sektionen-Julkalender
     image: registry.d-sektionen.se/jul.d-sektionen.se:latest
     restart: unless-stopped
-    command: uwsgi --ini /etc/uwsgi/julkalender.uwsgi.ini
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 2 --access-logfile -
     volumes:
       # Set the paths when deploying to production.
-      - ${JULKALENDER_BASEDIR}/julkalender.uwsgi.ini:/etc/uwsgi/julkalender.uwsgi.ini
       - ${JULKALENDER_BASEDIR}/static:/code/static
       - ${JULKALENDER_BASEDIR}/media:/code/media
       - ${JULKALENDER_BASEDIR}/log:/var/log/

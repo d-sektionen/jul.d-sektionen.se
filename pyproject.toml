@@ -12,7 +12,7 @@ dependencies = [
     "django-cleanup==9.0.0",
     "django-dbbackup==5.4.0",
     "psycopg[binary]==3.3.8",
-    "uWSGI==2.0.31",
+    "gunicorn==26.2.0",
 ]
 
 # The Django project lives in src/ and is not itself an installable package.
